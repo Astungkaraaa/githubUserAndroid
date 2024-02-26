@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/orange"
+        android:paddingHorizontal="24dp"
+        android:paddingTop="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_2sdp"
+        app:layout_constraintBottom_toTopOf="@+id/tabs"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/backbtn"
+            android:contentDescription="@string/backbtn"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_32sdp"
+            android:src="@drawable/baseline_arrow_back_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="@string/detailuser"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_15ssp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/backbtn"
+            app:layout_constraintStart_toEndOf="@+id/backbtn"
+            app:layout_constraintTop_toTopOf="@+id/backbtn" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img"
+            android:contentDescription="@string/profilepic"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="@id/guidelinekanan"
+            app:layout_constraintStart_toStartOf="@id/guidelinekiri"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+
+            app:layout_constraintBottom_toTopOf="@+id/guidelinebawah"/>
+
+        <ProgressBar
+            android:id="@+id/loadingAtas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/app_name"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_11ssp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/img" />
+
+        <TextView
+            android:id="@+id/tv_nama_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:text="@string/app_name"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_8ssp"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_username" />
+
+
+        <TextView
+            android:id="@+id/tvFollowers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/Followers"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintStart_toStartOf="@+id/img"
+            app:layout_constraintTop_toBottomOf="@id/tv_nama_user"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvFollowing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/Following"
+            android:textAlignment="textEnd"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintEnd_toEndOf="@+id/img"
+            app:layout_constraintTop_toBottomOf="@id/tv_nama_user"
+            android:textStyle="bold" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelinekiri"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.2" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelinekanan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.8" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelinebawah"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.70" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        app:tabTextColor="@color/orange"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"/>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        app:layout_constraintTop_toBottomOf="@+id/guideline"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/share"
+        app:layout_constraintStart_toStartOf="@+id/share"
+        android:layout_marginEnd="@dimen/_25sdp"
+        android:layout_marginBottom="@dimen/_15sdp"
+        android:src="@drawable/fav_border"
+        app:tint="@color/white"
+        android:backgroundTint="@color/orange"
+        android:contentDescription="@string/button_favorite" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/_25sdp"
+        android:layout_marginBottom="@dimen/_25sdp"
+        android:src="@drawable/share"
+        app:tint="@color/white"
+        android:backgroundTint="@color/orange"
+        android:contentDescription="@string/button_favorite" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">GitHubUserProject</string>
+    <string name="searchbar_hint">Cari User...</string>
+    <string name="Followers">Followers</string>
+    <string name="Following">Following</string>
+    <string name="tab_text_1">Followers</string>
+    <string name="tab_text_2">Following</string>
+    <string name="backbtn">Back Button</string>
+    <string name="profilepic">User Profile Picture</string>
+    <string name="detailuser">Detail User</string>
+    <string name="favoriteuser">Favorite User</string>
+    <string name="jmlfollowers">%d Followers</string>
+    <string name="jmlfollowing">%d Following</string>
+    <string name="button_favorite">Button Favorite</string>
+    <string name="menu_pengaturan">Menu Pengaturan</string>
+    <string name="menu_list_favorite">Menu List Favorite</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="logo_tema_gelap">logo tema gelap</string>
+    <string name="logo_splash_screen_white">logo splash screen white</string>
+    <string name="theme_setting">Theme Setting</string>
+    <string name="suksesfav">Sukses menambahkan %s ke daftar favorite</string>
+    <string name="suksesunfav">Sukses menghapus %s dari daftar favorite</string>
+    <string name="share_kata">Lihat User : %s, memiliki followers %d dan following %d</string>
+    <string name="share_opsi">Bagikan dengan </string>
+</resources>
