@@ -1,9 +1,8 @@
 package com.example.githubuserproject
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.githubuserproject.repositories.DetailViewModel
-import com.example.githubuserproject.repositories.FollowViewModel
-import com.example.githubuserproject.repositories.MainViewModel
+import com.example.githubuserproject.ui.viewmodel.FollowViewModel
+import com.example.githubuserproject.ui.viewmodel.MainViewModel
 import com.google.common.truth.Truth.assertThat
 import org.junit.Before
 import org.junit.Rule
@@ -11,7 +10,6 @@ import org.junit.Test
 
 class ApiTest {
     private lateinit var mainVm : MainViewModel
-    private lateinit var detailVm : DetailViewModel
     private lateinit var followVm : FollowViewModel
 
     @get:Rule
@@ -20,10 +18,8 @@ class ApiTest {
     @Before
     fun setup() {
         mainVm = MainViewModel()
-        detailVm = DetailViewModel()
         followVm = FollowViewModel()
     }
-
 
     @Test
     fun getAllUsers(){
@@ -36,13 +32,6 @@ class ApiTest {
         mainVm.searchUser("nanda")
         val search = mainVm.user.getOrAwaitValue()
         assertThat(search).isNotNull()
-    }
-
-    @Test
-    fun getDetailUser(){
-        detailVm.getDetail("Nanda")
-        val detail = detailVm.user.getOrAwaitValue()
-        assertThat(detail).isNotNull()
     }
 
     @Test

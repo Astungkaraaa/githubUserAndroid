@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/maintheme"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.ThemeActivity">
@@ -10,9 +11,10 @@
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -23,20 +25,20 @@
                 android:id="@+id/backbtntheme"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/_32sdp"
-                android:src="@drawable/baseline_arrow_back_24"
                 android:background="@color/transparent"
-                android:contentDescription="@string/backbtn" />
+                android:contentDescription="@string/backbtn"
+                android:src="@drawable/baseline_arrow_back_24" />
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
+                android:paddingStart="@dimen/_15sdp"
                 android:text="@string/theme_setting"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_15ssp"
                 android:textStyle="bold"
-                android:paddingStart="@dimen/_15sdp"
                 app:layout_constraintBottom_toBottomOf="@+id/backbtnfav"
                 app:layout_constraintStart_toEndOf="@+id/backbtnfav"
                 app:layout_constraintTop_toTopOf="@+id/backbtnfav"
@@ -56,5 +58,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/hint_darkmode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/darkmode_dinonaktifkan"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switch_theme" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

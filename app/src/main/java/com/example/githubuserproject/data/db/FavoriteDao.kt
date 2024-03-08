@@ -20,8 +20,4 @@ interface FavoriteDao {
     @Query("SELECT * FROM favoriteuser")
     fun getAllFavUser(): LiveData<List<FavoriteUser>>
 
-
-//    @Query("SELECT * from note ORDER BY id ASC")
-//    fun getAllNotes(): LiveData<List<Note>>
-
 }

@@ -5,9 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.githubuserproject.di.Injection
 import com.example.githubuserproject.repositories.FavoriteRepository
-import com.example.githubuserproject.repositories.FavoriteViewModel
+import com.example.githubuserproject.ui.viewmodel.FavoriteViewModel
 
-class ViewModelFactory private constructor(private val favoriteRepository: FavoriteRepository) :
+class FavoriteViewModelFactory private constructor(private val favoriteRepository: FavoriteRepository) :
     ViewModelProvider.NewInstanceFactory() {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -19,10 +19,10 @@ class ViewModelFactory private constructor(private val favoriteRepository: Favor
 
     companion object {
         @Volatile
-        private var instance: ViewModelFactory? = null
-        fun getInstance(context: Context): ViewModelFactory =
+        private var instance: FavoriteViewModelFactory? = null
+        fun getInstance(context: Context): FavoriteViewModelFactory =
             instance ?: synchronized(this) {
-                instance ?: ViewModelFactory(Injection.provideRepository(context))
+                instance ?: FavoriteViewModelFactory(Injection.provideRepository(context))
             }.also { instance = it }
     }
 }

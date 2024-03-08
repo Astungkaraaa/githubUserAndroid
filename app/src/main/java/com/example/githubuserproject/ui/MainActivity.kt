@@ -1,4 +1,4 @@
-package com.example.githubuserproject
+package com.example.githubuserproject.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -16,10 +16,8 @@ import com.example.githubuserproject.databinding.ActivityMainBinding
 import com.example.githubuserproject.datastore.SettingPreferences
 import com.example.githubuserproject.datastore.dataStore
 import com.example.githubuserproject.factory.ThemeViewModelFactory
-import com.example.githubuserproject.repositories.MainViewModel
-import com.example.githubuserproject.repositories.ThemeViewModel
-import com.example.githubuserproject.ui.FavoriteActivity
-import com.example.githubuserproject.ui.ThemeActivity
+import com.example.githubuserproject.ui.viewmodel.MainViewModel
+import com.example.githubuserproject.ui.viewmodel.ThemeViewModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,17 +26,13 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var mainVm : MainViewModel
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
-        mainVm = ViewModelProvider(this).get(MainViewModel::class.java)
-//        val themeViewModel = ViewModelProvider(this, ThemeViewModelFactory(pref)).get(
-//            ThemeViewModel::class.java
-//        )
+        mainVm = ViewModelProvider(this)[MainViewModel::class.java]
 
         val pref = SettingPreferences.getInstance(application.dataStore)
         val themeVm : ThemeViewModel by viewModels {
@@ -71,9 +65,9 @@ class MainActivity : AppCompatActivity() {
 
 
         val layoutManager = LinearLayoutManager(this)
-        binding?.rvListuser?.layoutManager = layoutManager
+        binding?.rvListuserMain?.layoutManager = layoutManager
         val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
-        binding?.rvListuser?.addItemDecoration(itemDecoration)
+        binding?.rvListuserMain?.addItemDecoration(itemDecoration)
 
         mainVm.user.observe(this){
             setUserRV(it)
@@ -113,13 +107,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUserRV(user: List<User>) {
         val adapter = UserAdapter(user)
-        binding?.rvListuser?.adapter = adapter
+        binding?.rvListuserMain?.adapter = adapter
     }
 
     private fun setLoading(isLoading : Boolean){
         binding?.progressBar?.visibility  = if(isLoading) View.VISIBLE else View.GONE
         binding?.searchbar?.visibility = if (isLoading) View.GONE else View.VISIBLE
-        binding?.rvListuser?.visibility  = if (isLoading) View.GONE else View.VISIBLE
+        binding?.rvListuserMain?.visibility  = if (isLoading) View.GONE else View.VISIBLE
 
     }
 

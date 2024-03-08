@@ -1,9 +1,10 @@
-package com.example.githubuserproject.repositories
+package com.example.githubuserproject.ui.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.githubuserproject.data.response.FollowUserItem
+import com.example.githubuserproject.data.response.ResponseAllUser
+import com.example.githubuserproject.data.response.User
 import com.example.githubuserproject.data.retrofit.ApiConfig
 import retrofit2.Call
 import retrofit2.Callback
@@ -11,12 +12,10 @@ import retrofit2.Response
 import java.net.ConnectException
 import java.net.UnknownHostException
 
-class FollowViewModel : ViewModel() {
-    private val _user = MutableLiveData<List<FollowUserItem>>()
-    val user : LiveData<List<FollowUserItem>> = _user
+class MainViewModel : ViewModel() {
 
-    private val _userFollowing = MutableLiveData<List<FollowUserItem>>()
-    val userFollowing : LiveData<List<FollowUserItem>> = _userFollowing
+    private val _user = MutableLiveData<List<User>>()
+    val user : LiveData<List<User>> = _user
 
     private val _loading = MutableLiveData<Boolean>()
     val loading : LiveData<Boolean> = _loading
@@ -24,24 +23,24 @@ class FollowViewModel : ViewModel() {
     private val _errorToastMessage = MutableLiveData<String>()
     val errorToastMessage: LiveData<String> = _errorToastMessage
 
-    companion object{
-        private const val TAG = "FollowViewModel"
+    init {
+        getAllUsers()
     }
 
-    fun getFollowers(name : String){
+    private fun getAllUsers(){
         _loading.value = true
-        val datas = ApiConfig.getApiService().getFollowers(name)
-        datas.enqueue(object : Callback<List<FollowUserItem>>{
-            override fun onResponse(call: Call<List<FollowUserItem>>, response: Response<List<FollowUserItem>>) {
+        val datas = ApiConfig.getApiService().getAllUsers("nanda")
+        datas.enqueue(object : Callback<ResponseAllUser> {
+            override fun onResponse(call: Call<ResponseAllUser>, response: Response<ResponseAllUser>) {
                 if(response.isSuccessful){
-                    _user.value = response.body()
                     _loading.value = false
+                    _user.value = response.body()?.items
                 }else{
                     _errorToastMessage.value = "Error: ${response.code()}"
                 }
             }
 
-            override fun onFailure(call: Call<List<FollowUserItem>>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseAllUser>, t: Throwable) {
                 when (t) {
                     is UnknownHostException -> _errorToastMessage.value = "Tidak ada koneksi internet"
                     is ConnectException -> _errorToastMessage.value = "Gagal terhubung ke server"
@@ -52,28 +51,32 @@ class FollowViewModel : ViewModel() {
         })
     }
 
-    fun getFollowing(name : String){
+    fun searchUser(name : String){
         _loading.value = true
-        val datas = ApiConfig.getApiService().getFollowing(name)
-        datas.enqueue(object : Callback<List<FollowUserItem>>{
-            override fun onResponse(call: Call<List<FollowUserItem>>, response: Response<List<FollowUserItem>>) {
-                if (response.isSuccessful){
-                    _userFollowing.value = response.body()
+        val datas = ApiConfig.getApiService().searchUser(name)
+        datas.enqueue(object : Callback<ResponseAllUser> {
+            override fun onResponse(call: Call<ResponseAllUser>, response: Response<ResponseAllUser>) {
+                if(response.isSuccessful){
                     _loading.value = false
+                    _user.value = response.body()?.items
+                    if (response.body()?.items?.isEmpty() == true){
+                        _errorToastMessage.value = "User tidak ditemukan"
+                    }
                 }else{
                     _errorToastMessage.value = "Error: ${response.code()}"
                 }
             }
 
-            override fun onFailure(call: Call<List<FollowUserItem>>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseAllUser>, t: Throwable) {
                 when (t) {
                     is UnknownHostException -> _errorToastMessage.value = "Tidak ada koneksi internet"
                     is ConnectException -> _errorToastMessage.value = "Gagal terhubung ke server"
                     else -> _errorToastMessage.value = "Terjadi kesalahan: ${t.message}"
                 }
             }
-
         })
     }
+
+
 
 }

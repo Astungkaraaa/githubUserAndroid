@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.githubuserproject.DetailActivity
 import com.example.githubuserproject.data.response.User
 import com.example.githubuserproject.databinding.UseritemBinding
+import com.example.githubuserproject.ui.DetailActivity
 
 class UserAdapter(val user : List<User>) :
     RecyclerView.Adapter<UserAdapter.MyViewHolder>() {
@@ -35,8 +35,5 @@ class UserAdapter(val user : List<User>) :
         }
     }
 
-    class MyViewHolder(val binding: UseritemBinding) : RecyclerView.ViewHolder(binding.root) {
-
-    }
-
+    class MyViewHolder(val binding: UseritemBinding) : RecyclerView.ViewHolder(binding.root)
 }

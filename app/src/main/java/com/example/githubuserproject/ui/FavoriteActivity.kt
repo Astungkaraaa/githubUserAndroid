@@ -1,6 +1,5 @@
 package com.example.githubuserproject.ui
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -8,12 +7,11 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.githubuserproject.MainActivity
-import com.example.githubuserproject.Result
 import com.example.githubuserproject.adapter.FavoriteAdapter
 import com.example.githubuserproject.databinding.ActivityFavoriteBinding
-import com.example.githubuserproject.factory.ViewModelFactory
-import com.example.githubuserproject.repositories.FavoriteViewModel
+import com.example.githubuserproject.factory.FavoriteViewModelFactory
+import com.example.githubuserproject.ui.viewmodel.FavoriteViewModel
+import com.example.githubuserproject.util.Result
 
 class FavoriteActivity : AppCompatActivity() {
 
@@ -21,7 +19,7 @@ class FavoriteActivity : AppCompatActivity() {
     private val binding get() = _binding
 
     private val favoriteViewModel : FavoriteViewModel by viewModels {
-        ViewModelFactory.getInstance(this)
+        FavoriteViewModelFactory.getInstance(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +28,6 @@ class FavoriteActivity : AppCompatActivity() {
         setContentView(binding?.root)
 
         setupRecycleView()
-
 
         favoriteViewModel.getAllFavUser().observe(this){ result ->
             when(result){
@@ -45,6 +42,8 @@ class FavoriteActivity : AppCompatActivity() {
                 }
                 is Result.Error ->{
                     binding?.loadingfav?.visibility = View.GONE
+                    val adapter = FavoriteAdapter(null)
+                    binding?.rvListuserFav?.adapter = adapter
                     Toast.makeText(
                         this,
                         result.error,
@@ -54,11 +53,8 @@ class FavoriteActivity : AppCompatActivity() {
             }
         }
 
-
         binding?.backbtnfav?.setOnClickListener{
-            val intent = Intent(this, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            startActivity(intent)
+            onBackPressed()
         }
 
     }
@@ -69,7 +65,6 @@ class FavoriteActivity : AppCompatActivity() {
         val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
         binding?.rvListuserFav?.addItemDecoration(itemDecoration)
     }
-
 
     override fun onDestroy() {
         super.onDestroy()

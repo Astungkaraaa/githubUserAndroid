@@ -1,15 +1,13 @@
 package com.example.githubuserproject.repositories
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.map
-import com.example.githubuserproject.Result
 import com.example.githubuserproject.data.db.FavoriteDao
 import com.example.githubuserproject.data.db.FavoriteUser
+import com.example.githubuserproject.util.Result
 
 class FavoriteRepository private constructor(private val favoriteDao: FavoriteDao) {
-
     suspend fun addFavorite(favoriteUser: FavoriteUser){
         favoriteDao.save(favoriteUser)
     }
@@ -26,14 +24,12 @@ class FavoriteRepository private constructor(private val favoriteDao: FavoriteDa
         emit(Result.Loading)
         val favUserLiveData = favoriteDao.getAllFavUser()
         val transformedLiveData = favUserLiveData.map { userList ->
-            Log.d(FavoriteRepository::class.java.simpleName, "favUserTes : ${userList.size}")
             if (userList.isNotEmpty()) {
                 Result.Success(userList)
             } else {
                 Result.Error("Tidak ada data yang ditemukan")
             }
         }
-
         try {
             emitSource(transformedLiveData)
         } catch (e: Exception) {

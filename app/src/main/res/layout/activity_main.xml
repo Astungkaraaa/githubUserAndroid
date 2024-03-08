@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:id="@+id/mainmain"
+    tools:context=".ui.MainActivity">
     
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
@@ -22,28 +23,30 @@
             <ImageView
                 android:layout_width="200dp"
                 android:layout_height="80dp"
-                android:src="@drawable/logogithub"/>
+                android:src="@drawable/logogithub"
+                android:contentDescription="@string/logo_github" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/keTema"
                 android:layout_width="@dimen/_30sdp"
                 android:layout_height="@dimen/_20sdp"
+                android:scaleType="fitCenter"
                 android:src="@drawable/setting"
+                android:background="@color/transparent"
                 android:layout_gravity="end|center_vertical"
                 android:layout_marginEnd="@dimen/_20sdp"
                 android:contentDescription="@string/menu_pengaturan" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/keFav"
                 android:layout_width="@dimen/_30sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:src="@drawable/favorite"
+                android:background="@color/transparent"
+                android:scaleType="fitCenter"
                 android:layout_gravity="end|center_vertical"
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:contentDescription="@string/menu_list_favorite" />
-
-
-
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -84,7 +87,7 @@
         tools:visibility="visible" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvListuser"
+        android:id="@+id/rvListuserMain"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailActivity">
+    android:id="@+id/maindetail"
+    tools:context=".ui.DetailActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -18,9 +19,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+        <ImageButton
             android:id="@+id/backbtn"
             android:contentDescription="@string/backbtn"
+            android:background="@color/transparent"
             android:layout_width="0dp"
             android:layout_height="@dimen/_32sdp"
             android:src="@drawable/baseline_arrow_back_24"
@@ -49,7 +51,6 @@
             app:layout_constraintEnd_toEndOf="@id/guidelinekanan"
             app:layout_constraintStart_toStartOf="@id/guidelinekiri"
             app:layout_constraintTop_toBottomOf="@+id/textView"
-
             app:layout_constraintBottom_toTopOf="@+id/guidelinebawah"/>
 
         <ProgressBar
@@ -64,7 +65,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_username"
+            android:id="@+id/tv_username_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
@@ -87,7 +88,7 @@
             android:textStyle="italic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_username" />
+            app:layout_constraintTop_toBottomOf="@id/tv_username_detail" />
 
 
         <TextView

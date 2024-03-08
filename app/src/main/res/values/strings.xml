@@ -22,4 +22,8 @@
     <string name="suksesunfav">Sukses menghapus %s dari daftar favorite</string>
     <string name="share_kata">Lihat User : %s, memiliki followers %d dan following %d</string>
     <string name="share_opsi">Bagikan dengan </string>
+    <string name="darkmode_dinonaktifkan">Darkmode dinonaktifkan</string>
+    <string name="darkmode_diaktifkan">Darkmode diaktifkan</string>
+    <string name="logo_github">logo github</string>
+    <string name="nama_user">Nama User</string>
 </resources>

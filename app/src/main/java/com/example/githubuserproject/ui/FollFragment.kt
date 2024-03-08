@@ -1,4 +1,4 @@
-package com.example.githubuserproject
+package com.example.githubuserproject.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubuserproject.adapter.FollowAdapter
 import com.example.githubuserproject.databinding.FragmentFollBinding
-import com.example.githubuserproject.repositories.FollowViewModel
+import com.example.githubuserproject.ui.viewmodel.FollowViewModel
 
 
 class FollFragment : Fragment() {
@@ -32,7 +32,7 @@ class FollFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        followVm = ViewModelProvider(requireActivity()).get(FollowViewModel::class.java)
+        followVm = ViewModelProvider(requireActivity())[FollowViewModel::class.java]
 
         var position : Int = 0
         var username : String? = ""
@@ -43,15 +43,15 @@ class FollFragment : Fragment() {
         }
 
         val layoutManager = LinearLayoutManager(requireActivity())
-        binding.rvListuser.layoutManager = layoutManager
+        binding.rvListuserFoll.layoutManager = layoutManager
         val itemDecoration = DividerItemDecoration(requireActivity(), layoutManager.orientation)
-        binding.rvListuser.addItemDecoration(itemDecoration)
+        binding.rvListuserFoll.addItemDecoration(itemDecoration)
 
         if (position == 1){
             followVm.getFollowers(username!!)
             followVm.user.observe(viewLifecycleOwner){
                 val adapter = FollowAdapter(it)
-                binding.rvListuser.adapter = adapter
+                binding.rvListuserFoll.adapter = adapter
             }
 
             followVm.loading.observe(viewLifecycleOwner){
@@ -68,18 +68,18 @@ class FollFragment : Fragment() {
             followVm.getFollowing(username!!)
             followVm.userFollowing.observe(viewLifecycleOwner){
                 val adapter = FollowAdapter(it)
-                binding.rvListuser.adapter = adapter
+                binding.rvListuserFoll.adapter = adapter
             }
 
             followVm.loading.observe(viewLifecycleOwner){
                 setLoading(it)
             }
 
-            followVm.errorToastMessage.observe(requireActivity(), {
+            followVm.errorToastMessage.observe(requireActivity()) {
                 it?.let {
                     showToast(it)
                 }
-            })
+            }
         }
     }
 
@@ -90,7 +90,7 @@ class FollFragment : Fragment() {
 
     private fun setLoading(isLoading : Boolean) {
         binding.loadingbawah.visibility = if(isLoading) View.VISIBLE else View.GONE
-        binding.rvListuser.visibility = if(isLoading) View.GONE else View.VISIBLE
+        binding.rvListuserFoll.visibility = if(isLoading) View.GONE else View.VISIBLE
     }
 
     companion object {

@@ -1,4 +1,4 @@
-package com.example.githubuserproject
+package com.example.githubuserproject.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -10,12 +10,13 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.example.githubuserproject.R
 import com.example.githubuserproject.adapter.ViewPagerAdapter
 import com.example.githubuserproject.data.db.FavoriteUser
 import com.example.githubuserproject.databinding.ActivityDetailBinding
-import com.example.githubuserproject.factory.ViewModelFactory
-import com.example.githubuserproject.repositories.DetailViewModel
-import com.example.githubuserproject.repositories.FavoriteViewModel
+import com.example.githubuserproject.factory.FavoriteViewModelFactory
+import com.example.githubuserproject.ui.viewmodel.DetailViewModel
+import com.example.githubuserproject.ui.viewmodel.FavoriteViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 
 class DetailActivity : AppCompatActivity() {
@@ -37,8 +38,8 @@ class DetailActivity : AppCompatActivity() {
         const val KEY_NAME_USER = "key_name_user"
     }
 
-    val favoriteViewModel : FavoriteViewModel by viewModels {
-        ViewModelFactory.getInstance(this)
+    private val favoriteViewModel : FavoriteViewModel by viewModels {
+        FavoriteViewModelFactory.getInstance(this)
     }
 
     @SuppressLint("QueryPermissionsNeeded")
@@ -47,7 +48,7 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        detailVm = ViewModelProvider(this).get(DetailViewModel::class.java)
+        detailVm = ViewModelProvider(this)[DetailViewModel::class.java]
 
         val name = intent.getStringExtra(KEY_NAME_USER)
 
@@ -64,7 +65,7 @@ class DetailActivity : AppCompatActivity() {
 
             binding.tvNamaUser.text = it.name
 
-            binding.tvUsername.text = it.login
+            binding.tvUsernameDetail.text = it.login
             Glide.with(this)
                 .load(it.avatarUrl)
                 .into(binding.img)
@@ -74,17 +75,15 @@ class DetailActivity : AppCompatActivity() {
             favUser = FavoriteUser(it.login, it.avatarUrl)
 
             favoriteViewModel.getFavoriteUserByUsername(favUser.username).observe(this) {
-                if (it == null) {
+                isFavorite = if (it == null) {
                     binding.fab.setImageResource(R.drawable.fav_border)
-                    isFavorite = false
+                    false
                 } else {
                     binding.fab.setImageResource(R.drawable.fav_full)
-                    isFavorite = true
+                    true
                 }
             }
         }
-
-
 
 
         detailVm.errorToastMessage.observe(this) {
@@ -94,12 +93,8 @@ class DetailActivity : AppCompatActivity() {
         }
 
         binding.backbtn.setOnClickListener {
-            val intentBack = Intent(this, MainActivity::class.java)
-            intentBack.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            startActivity(intentBack)
+            onBackPressed()
         }
-
-
 
         binding.fab.setOnClickListener {
             if (isFavorite == false) {
@@ -134,11 +129,12 @@ class DetailActivity : AppCompatActivity() {
         with(binding){
             loadingAtas.visibility = if(isLoading) View.VISIBLE else View.GONE
             img.visibility = if(isLoading) View.GONE else View.VISIBLE
-            tvUsername.visibility = if(isLoading) View.GONE else View.VISIBLE
+            tvUsernameDetail.visibility = if(isLoading) View.GONE else View.VISIBLE
             tvNamaUser.visibility = if(isLoading) View.GONE else View.VISIBLE
             tvFollowing.visibility = if(isLoading) View.GONE else View.VISIBLE
             tvFollowers.visibility = if(isLoading) View.GONE else View.VISIBLE
             fab.visibility = if(isLoading) View.GONE else View.VISIBLE
+            share.visibility = if(isLoading) View.GONE else View.VISIBLE
         }
 
     }

@@ -1,8 +1,9 @@
-package com.example.githubuserproject.repositories
+package com.example.githubuserproject.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.githubuserproject.data.db.FavoriteUser
+import com.example.githubuserproject.repositories.FavoriteRepository
 import kotlinx.coroutines.launch
 
 class FavoriteViewModel(private val favoriteRepository: FavoriteRepository) : ViewModel() {

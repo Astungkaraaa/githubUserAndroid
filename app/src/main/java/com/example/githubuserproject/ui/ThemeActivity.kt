@@ -1,17 +1,16 @@
 package com.example.githubuserproject.ui
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.CompoundButton
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.lifecycle.ViewModelProvider
-import com.example.githubuserproject.MainActivity
+import com.example.githubuserproject.R
 import com.example.githubuserproject.databinding.ActivityThemeBinding
 import com.example.githubuserproject.datastore.SettingPreferences
 import com.example.githubuserproject.datastore.dataStore
 import com.example.githubuserproject.factory.ThemeViewModelFactory
-import com.example.githubuserproject.repositories.ThemeViewModel
+import com.example.githubuserproject.ui.viewmodel.ThemeViewModel
 
 class ThemeActivity : AppCompatActivity() {
     private var _binding : ActivityThemeBinding? = null
@@ -23,9 +22,9 @@ class ThemeActivity : AppCompatActivity() {
         setContentView(binding?.root)
 
         val pref = SettingPreferences.getInstance(application.dataStore)
-        val themeViewModel = ViewModelProvider(this, ThemeViewModelFactory(pref)).get(
-            ThemeViewModel::class.java
-        )
+        val themeViewModel : ThemeViewModel by viewModels {
+            ThemeViewModelFactory(pref)
+        }
 
         themeViewModel.getThemeSettings().observe(this){isDarkModeActive ->
             if (isDarkModeActive) {
@@ -39,12 +38,13 @@ class ThemeActivity : AppCompatActivity() {
 
         binding?.switchTheme?.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean  ->
             themeViewModel.saveThemeSetting(isChecked)
+            if (isChecked == true){
+                binding?.hintDarkmode?.text = getString(R.string.darkmode_diaktifkan)
+            }
         }
 
         binding?.backbtntheme?.setOnClickListener{
-            val intent = Intent(this, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            startActivity(intent)
+            onBackPressed()
         }
     }
 
